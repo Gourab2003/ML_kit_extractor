@@ -1,0 +1,37 @@
+import { StyleSheet } from "react-native";
+
+export const C = { bg: "#F4F6F8", card: "#FFFFFF", text: "#111827", muted: "#6B7280", blue: "#0B5FA5", green: "#15803D", orange: "#D97706", orangeBg: "#FFF4E0", red: "#B91C1C", grey: "#9CA3AF", border: "#D1D5DB" };
+
+export const s = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: C.bg },
+  pad: { padding: 16 },
+  h1: { fontSize: 22, fontWeight: "700", color: C.text },
+  h2: { fontSize: 18, fontWeight: "700", color: C.text },
+  muted: { color: C.muted, marginTop: 4 },
+  label: { color: C.muted, fontSize: 13, marginBottom: 2 },
+  note: { color: C.orange, fontSize: 12, marginTop: 2 },
+  warn: { color: C.red, marginTop: 6 },
+  ok: { color: C.green, marginTop: 6 },
+  link: { color: C.blue, fontWeight: "600", padding: 4 },
+  linkDanger: { color: C.red, fontWeight: "600", padding: 4 },
+  card: { backgroundColor: C.card, borderRadius: 10, padding: 12, marginTop: 12, borderWidth: 1, borderColor: C.border },
+  cardTitle: { fontSize: 17, fontWeight: "700", color: C.text },
+  rowBetween: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  rowCenter: { flexDirection: "row", alignItems: "center" },
+  input: { flex: 1, borderWidth: 1, borderColor: C.border, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 17, color: C.text, backgroundColor: "#fff" },
+  inputCheck: { borderColor: C.orange, borderWidth: 2, backgroundColor: C.orangeBg },
+  tick: { marginLeft: 8, backgroundColor: C.green, borderRadius: 8, width: 44, height: 44, alignItems: "center", justifyContent: "center" },
+  tickText: { color: "#fff", fontSize: 22, fontWeight: "700" },
+  btn: { flex: 1, backgroundColor: C.blue, borderRadius: 10, paddingVertical: 16, alignItems: "center", marginHorizontal: 4 },
+  btnBig: { backgroundColor: C.blue, borderRadius: 12, paddingVertical: 22, alignItems: "center", marginTop: 14 },
+  btnGrey: { backgroundColor: C.grey },
+  btnText: { color: "#fff", fontSize: 17, fontWeight: "700" },
+  btnGhost: { borderWidth: 1, borderColor: C.blue, borderRadius: 10, paddingVertical: 14, alignItems: "center", marginTop: 14 },
+  btnGhostText: { color: C.blue, fontSize: 16, fontWeight: "600" },
+  bottomBar: { position: "absolute", left: 0, right: 0, bottom: 0, flexDirection: "row", padding: 10, backgroundColor: "#fff", borderTopWidth: 1, borderColor: C.border },
+  chip: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 16, borderWidth: 1, borderColor: C.border, marginRight: 8, marginTop: 8, backgroundColor: "#fff" },
+  chipOn: { backgroundColor: C.blue, borderColor: C.blue },
+  chipText: { color: C.text, fontWeight: "600" },
+  chipTextOn: { color: "#fff", fontWeight: "600" },
+  mono: { fontFamily: "monospace", fontSize: 11, color: C.text },
+});

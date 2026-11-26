@@ -1,0 +1,7 @@
+node_modules
+**/node_modules
+app/android
+app/ios
+.git
+.env
+*.env

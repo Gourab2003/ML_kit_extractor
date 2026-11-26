@@ -1,0 +1,66 @@
+name: Build Android APK
+
+# Builds an installable APK on GitHub's machines (they have the Android SDK).
+# Download it from the run page -> "Artifacts" -> pcbl-field-apk, unzip, copy to the phone, install.
+on:
+  push:
+    branches: [main]
+    paths: ["app/**", ".github/workflows/android-apk.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: android-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Install
+        run: npm ci
+
+      - name: Reading engine tests + typecheck
+        run: |
+          npm test
+          npx tsc --noEmit
+
+      - name: Generate Android project
+        run: npx expo prebuild --platform android --no-install
+
+      - name: "Build release APK (phones only - arm64 + armv7, keeps the APK small)"
+        working-directory: app/android
+        run: ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=arm64-v8a,armeabi-v7a
+
+      - name: Name the APK
+        run: |
+          mkdir -p ../dist
+          cp android/app/build/outputs/apk/release/app-release.apk "../dist/pcbl-field-${GITHUB_SHA::7}.apk"
+          ls -la ../dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pcbl-field-apk
+          path: dist/*.apk
+          retention-days: 30

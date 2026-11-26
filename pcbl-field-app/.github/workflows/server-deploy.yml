@@ -1,0 +1,24 @@
+name: Deploy field server
+
+on:
+  push:
+    branches: [main]
+    paths: ["server/**", "app/src/engine/**", ".github/workflows/server-deploy.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-pcbl-field-server
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    # Same self-hosted runner as the mail reader (label: automation-server)
+    runs-on: [self-hosted, automation-server]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build, test and deploy
+        run: bash server/deploy.sh
